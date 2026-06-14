@@ -27,8 +27,10 @@ RUN corepack enable && corepack prepare pnpm@9 --activate
 COPY frontend/package.json frontend/pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
-# Copy frontend source and build
+# Copy frontend source first
 COPY frontend/ ./
+# Copy docs/ (法律文档等被前端引用的静态资源)
+COPY docs/ ../docs/
 RUN pnpm run build
 
 # -----------------------------------------------------------------------------
