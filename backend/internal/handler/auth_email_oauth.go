@@ -230,7 +230,7 @@ func (h *AuthHandler) emailOAuthShouldCreatePendingRegistration(ctx context.Cont
 	}
 	if _, err := findUserByNormalizedEmail(ctx, client, email); err != nil {
 		if errors.Is(err, service.ErrUserNotFound) {
-			return true, nil
+			return false, nil
 		}
 		return false, err
 	}
