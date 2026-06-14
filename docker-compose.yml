@@ -31,7 +31,7 @@ services:
     ports:
       - "${BIND_HOST:-0.0.0.0}:${SERVER_PORT:-8080}:8080"
     volumes:
-      - sub2api_data:/app/data
+      - ./deploy/sub2api_data:/app/data
     environment:
       # Auto Setup
       - AUTO_SETUP=true
@@ -129,7 +129,7 @@ services:
         soft: 100000
         hard: 100000
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - ./deploy/postgres_data:/var/lib/postgresql/data
     environment:
       - PGDATA=/var/lib/postgresql/data
       - POSTGRES_USER=${POSTGRES_USER:-sub2api}
@@ -157,7 +157,7 @@ services:
         soft: 100000
         hard: 100000
     volumes:
-      - redis_data:/data
+      - ./deploy/redis_data:/data
     command: >
       sh -c '
         redis-server
@@ -176,14 +176,6 @@ services:
       timeout: 5s
       retries: 5
       start_period: 5s
-
-volumes:
-  sub2api_data:
-    driver: local
-  postgres_data:
-    driver: local
-  redis_data:
-    driver: local
 
 networks:
   sub2api-network:
